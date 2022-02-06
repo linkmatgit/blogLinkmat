@@ -5,9 +5,13 @@ namespace App\Domain\Auth\Entity;
 use App\Domain\Auth\Repository\UserRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 
+/**
+ * @UniqueEntity(fields={"username"}, message="There is already an account with this username")
+ */
 #[ORM\Entity(repositoryClass: UserRepository::class)]
 #[ORM\Table(name: '`user`')]
 class User implements PasswordAuthenticatedUserInterface, UserInterface
