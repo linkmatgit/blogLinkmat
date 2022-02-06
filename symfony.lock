@@ -109,6 +109,9 @@
     "egulias/email-validator": {
         "version": "3.1.2"
     },
+    "erusev/parsedown": {
+        "version": "1.7.4"
+    },
     "fakerphp/faker": {
         "version": "v1.19.0"
     },
@@ -724,7 +727,19 @@
     "theseer/tokenizer": {
         "version": "1.2.1"
     },
+    "tijsverkoyen/css-to-inline-styles": {
+        "version": "2.2.4"
+    },
+    "twig/cssinliner-extra": {
+        "version": "v3.3.5"
+    },
     "twig/extra-bundle": {
+        "version": "v3.3.8"
+    },
+    "twig/intl-extra": {
+        "version": "v3.3.5"
+    },
+    "twig/markdown-extra": {
         "version": "v3.3.8"
     },
     "twig/twig": {
