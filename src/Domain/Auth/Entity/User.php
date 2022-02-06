@@ -27,17 +27,17 @@ class User implements PasswordAuthenticatedUserInterface, UserInterface
     #[ORM\Column(type: Types::STRING)]
     private ?string $username = null;
 
-    #[ORM\Column(type: Types::DATETIME_IMMUTABLE)]
-    private \DateTimeInterface $registerAt;
+    #[ORM\Column(type: 'datetime', nullable: true)]
+    private ?\DateTimeInterface $registerAt = null;
 
-    #[ORM\Column(type: Types::DATETIME_IMMUTABLE)]
-    private \DateTimeInterface $lastLogin;
+    #[ORM\Column(type: 'datetime', nullable: true)]
+    private ?\DateTimeInterface $lastLogin = null;
 
-    #[ORM\Column(type: Types::STRING)]
-    private string $lastLoginIP;
+    #[ORM\Column(type: Types::STRING, nullable:  true)]
+    private ?string $lastLoginIP = null;
 
-    #[ORM\Column(type: Types::DATETIME_IMMUTABLE)]
-    private \DateTimeInterface $updatedAt;
+    #[ORM\Column(type: 'datetime', nullable: true)]
+    private ?\DateTimeInterface $updatedAt = null;
 
     #[ORM\Column(type: Types::STRING)]
     private string $password;
@@ -45,7 +45,7 @@ class User implements PasswordAuthenticatedUserInterface, UserInterface
     #[ORM\Column(type: Types::JSON)]
     private array $roles = ['ROLE_USER'];
 
-    #[ORM\Column(type: Types::STRING),]
+    #[ORM\Column(type: Types::STRING, nullable: true)]
     private ?string $confirmation_token = null;
 
     public function getId(): ?int
