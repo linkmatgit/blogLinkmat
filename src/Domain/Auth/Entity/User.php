@@ -5,10 +5,12 @@ namespace App\Domain\Auth\Entity;
 use App\Domain\Auth\Repository\UserRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
 #[ORM\Table(name: '`user`')]
-class User
+class User implements PasswordAuthenticatedUserInterface, UserInterface
 {
     #[ORM\Id]
     #[ORM\GeneratedValue('IDENTITY')]
@@ -37,8 +39,10 @@ class User
     private string $password;
 
     #[ORM\Column(type: Types::JSON)]
-    private array $role = ['ROLE_USER'];
+    private array $roles = ['ROLE_USER'];
 
+    #[ORM\Column(type: Types::STRING),]
+    private ?string $confirmation_token = null;
 
     public function getId(): ?int
     {
@@ -171,21 +175,51 @@ class User
         return $this;
     }
 
-    /**
-     * @return array|string[]
-     */
-    public function getRole(): array
+
+    public function eraseCredentials()
     {
-        return $this->role;
+        // TODO: Implement eraseCredentials() method.
+    }
+
+    public function getUserIdentifier(): string
+    {
+        return $this->username;
     }
 
     /**
-     * @param array|string[] $role
+     * @return array|string[]
+     */
+    public function getRoles(): array
+    {
+        return $this->roles;
+    }
+
+    /**
+     * @param array|string[] $roles
      * @return User
      */
-    public function setRole(array $role): User
+    public function setRoles(array $roles): User
     {
-        $this->role = $role;
+        $this->roles = $roles;
         return $this;
     }
+
+    /**
+     * @return string|null
+     */
+    public function getConfirmationToken(): ?string
+    {
+        return $this->confirmation_token;
+    }
+
+    /**
+     * @param string|null $confirmation_token
+     * @return User
+     */
+    public function setConfirmationToken(?string $confirmation_token): User
+    {
+        $this->confirmation_token = $confirmation_token;
+        return $this;
+    }
+
 }
