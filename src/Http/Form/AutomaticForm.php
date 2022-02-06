@@ -40,23 +40,20 @@ class AutomaticForm extends AbstractType
                 return;
             }
 
-            // Input spécifique au niveau
-            if ('level' === $name) {
-                $builder->add($name, ChoiceType::class, [
-                    'required' => true,
-                    'choices' => array_flip(Formation::$levels),
-                ]);
+
                 // Input spécifique au nom du champs
-            } elseif (array_key_exists($name, self::NAMES)) {
+            if (array_key_exists($name, self::NAMES)) {
                 $builder->add($name, self::NAMES[$name], [
-                    'required' => false,
+                   'required' => false,
                 ]);
             } elseif (array_key_exists($type->getName(), self::TYPES)) {
                 $builder->add($name, self::TYPES[$type->getName()], [
-                    'required' => !$type->allowsNull() && 'bool' !== $type->getName(),
+                   'required' => !$type->allowsNull() && 'bool' !== $type->getName(),
                 ]);
             } else {
-                throw new \RuntimeException(sprintf('Impossible de trouver le champs associé au type %s dans %s::%s', $type->getName(), $data::class, $name));
+                throw new \RuntimeException(
+                    sprintf('Impossible de trouver le champs associé au type %s dans %s::%s',
+                        $type->getName(), $data::class, $name));
             }
         }
     }
