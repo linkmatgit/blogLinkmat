@@ -1,0 +1,18 @@
+:root {
+  --background: #B7C8EC;
+  --gap: 8px
+}
+
+/* ======= OUTILS ===== */
+
+@import "tools/reset";
+@import 'tools/functions';
+@import "tools/mixins";
+@import "tools/typography";
+
+body{
+  background: var(--background);
+  font-family: $font;
+  font-size: 16px;
+  line-height: 1.2;
+}

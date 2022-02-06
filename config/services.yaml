@@ -20,3 +20,18 @@ services:
 
         # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones
+App\Http\Twig\TwigAssetExtension:
+    arguments:
+        $assetPath: '%kernel.project_dir%/public/assets'
+        $env: '%kernel.environment%'
+
+    App\Http\Controller\:
+        resource: '../src/Http/Controller'
+        tags: ['controller.service_arguments']
+
+    App\Http\Admin\Controller\:
+        resource: '../src/Http/Admin/Controller'
+        tags: ['controller.service_arguments']
+
+    App\Http\Admin\Firewall\AdminRequestListener:
+        arguments: ['%admin_prefix%']

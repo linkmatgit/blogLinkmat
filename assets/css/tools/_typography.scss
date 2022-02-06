@@ -1,0 +1,20 @@
+$font: Dejavu Sans, Arial, Verdana, sans-serif;
+$font-alt:  Century Gothic, CenturyGothic, AppleGothic, sans-serif;
+
+:root {
+  --font: $font;
+  --font-alt: $font-alt
+}
+
+%hero-title,
+.hero-title{
+   font-size: 52px;
+  font-family: $font-alt;
+  font-weight: 700;
+  line-height: 1.2;
+
+  strong {
+    color: var(--contrast);
+  }
+
+}
