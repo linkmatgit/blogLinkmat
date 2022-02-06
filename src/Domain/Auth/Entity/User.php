@@ -21,16 +21,16 @@ class User
     #[ORM\Column(type: Types::STRING)]
     private ?string $username = null;
 
-    #[ORM\Column(Types::DATETIME_IMMUTABLE)]
+    #[ORM\Column(type: Types::DATETIME_IMMUTABLE)]
     private \DateTimeInterface $registerAt;
 
-    #[ORM\Column(Types::DATETIME_IMMUTABLE)]
+    #[ORM\Column(type: Types::DATETIME_IMMUTABLE)]
     private \DateTimeInterface $lastLogin;
 
     #[ORM\Column(type: Types::STRING)]
     private string $lastLoginIP;
 
-    #[ORM\Column(Types::DATETIME_IMMUTABLE)]
+    #[ORM\Column(type: Types::DATETIME_IMMUTABLE)]
     private \DateTimeInterface $updatedAt;
 
     #[ORM\Column(type: Types::STRING)]
