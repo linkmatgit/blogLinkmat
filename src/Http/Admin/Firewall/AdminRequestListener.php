@@ -22,8 +22,10 @@ class AdminRequestListener implements EventSubscriberInterface
         ];
     }
 
-    public function __construct(private readonly string $adminPrefix, private readonly AuthorizationCheckerInterface $auth)
-    {
+    public function __construct(
+        private readonly string $adminPrefix,
+        private readonly AuthorizationCheckerInterface $auth
+    ) {
     }
 
     public function onRequest(RequestEvent $event): void
@@ -31,9 +33,10 @@ class AdminRequestListener implements EventSubscriberInterface
         if (!$event->isMainRequest()) {
             return;
         }
-        $uri = '/'.trim($event->getRequest()->getRequestUri(), '/').'/';
-        $prefix = '/'.trim($this->adminPrefix, '/').'/';
-        if (substr($uri, 0, mb_strlen($prefix)) === $prefix &&
+        $uri = '/' . trim($event->getRequest()->getRequestUri(), '/') . '/';
+        $prefix = '/' . trim($this->adminPrefix, '/') . '/';
+        if (
+            substr($uri, 0, mb_strlen($prefix)) === $prefix &&
             !$this->auth->isGranted('ROLE_MANAGE')
         ) {
             $exception = new AccessDeniedException();
@@ -54,7 +57,10 @@ class AdminRequestListener implements EventSubscriberInterface
             return;
         }
         $controller = $event->getController();
-        if (is_array($controller) && $controller[0] instanceof BaseController && !$this->auth->isGranted('ROLE_MANAGE')) {
+        if (
+            is_array($controller) && $controller[0]
+            instanceof BaseController && !$this->auth->isGranted('ROLE_MANAGE')
+        ) {
             $exception = new AccessDeniedException();
             $exception->setSubject($event->getRequest());
             throw $exception;

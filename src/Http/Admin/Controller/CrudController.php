@@ -13,7 +13,6 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Response;
 
-
 abstract class CrudController extends BaseController
 {
     /**
@@ -76,7 +75,7 @@ abstract class CrudController extends BaseController
             }
             $this->addFlash('success', 'Le contenu a bien été modifié');
 
-            return $this->redirectToRoute($this->routePrefix.'_edit', ['id' => $entity->getId()]);
+            return $this->redirectToRoute($this->routePrefix . '_edit', ['id' => $entity->getId()]);
         }
 
         return $this->render("admin/{$this->templatePath}/edit.html.twig", [
@@ -103,7 +102,7 @@ abstract class CrudController extends BaseController
             }
             $this->addFlash('success', 'Le contenu a bien été créé');
 
-            return $this->redirectToRoute($this->routePrefix.'_edit', ['id' => $entity->getId()]);
+            return $this->redirectToRoute($this->routePrefix . '_edit', ['id' => $entity->getId()]);
         }
 
         return $this->render("admin/{$this->templatePath}/new.html.twig", [
@@ -122,7 +121,7 @@ abstract class CrudController extends BaseController
         $this->em->flush();
         $this->addFlash('success', 'Le contenu a bien été supprimé');
 
-        return $this->redirectToRoute($redirectRoute ?: ($this->routePrefix.'_index'));
+        return $this->redirectToRoute($redirectRoute ?: ($this->routePrefix . '_index'));
     }
 
     public function getRepository(): EntityRepository
@@ -137,6 +136,6 @@ abstract class CrudController extends BaseController
     {
         return $query
             ->where("LOWER(row.{$this->searchField}) LIKE :search")
-            ->setParameter('search', '%'.strtolower($search).'%');
+            ->setParameter('search', '%' . strtolower($search) . '%');
     }
 }

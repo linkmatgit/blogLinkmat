@@ -52,8 +52,13 @@ class AutomaticForm extends AbstractType
                 ]);
             } else {
                 throw new \RuntimeException(
-                    sprintf('Impossible de trouver le champs associé au type %s dans %s::%s',
-                        $type->getName(), $data::class, $name));
+                    sprintf(
+                        'Impossible de trouver le champs associé au type %s dans %s::%s',
+                        $type->getName(),
+                        $data::class,
+                        $name
+                    )
+                );
             }
         }
     }

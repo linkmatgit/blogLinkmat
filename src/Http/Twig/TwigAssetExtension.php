@@ -43,7 +43,7 @@ class TwigAssetExtension extends AbstractExtension
         if (null === $this->paths) {
             $cached = $this->cache->getItem(self::CACHE_KEY);
             if (!$cached->isHit()) {
-                $manifest = $this->assetPath.'/manifest.json';
+                $manifest = $this->assetPath . '/manifest.json';
                 if (file_exists($manifest)) {
                     $paths = json_decode((string) file_get_contents($manifest), true, 512, JSON_THROW_ON_ERROR);
                     $this->cache->save($cached->set($paths));
@@ -61,7 +61,7 @@ class TwigAssetExtension extends AbstractExtension
 
     public function link(string $name, array $attrs = []): string
     {
-        $uri = $this->uri($name.'.css');
+        $uri = $this->uri($name . '.css');
         if (strpos($uri, ':3000')) {
             return ''; // Le CSS est chargé depuis le JS dans l'environnement de dev
         }
@@ -70,20 +70,22 @@ class TwigAssetExtension extends AbstractExtension
 
         return sprintf(
             '<link rel="stylesheet" href="%s" %s>',
-            $this->uri($name.'.css'),
-            empty($attrs) ? '' : (' '.$attributes)
+            $this->uri($name . '.css'),
+            empty($attrs) ? '' : (' ' . $attributes)
         );
     }
 
     public function script(string $name): string
     {
-        $script = $this->preload($name.'.js').'<script src="'.$this->uri($name.'.js').'" type="module" defer></script>';
+        $script = $this->preload($name . '.js') . '<script src="' . $this->uri($name . '.js') . '" type="module" defer></script>';
         $request = $this->requestStack->getCurrentRequest();
 
         if (false === $this->polyfillLoaded && $request instanceof Request) {
             $userAgent = $request->headers->get('User-Agent') ?: '';
-            if (strpos($userAgent, 'Safari') &&
-                !strpos($userAgent, 'Chrome')) {
+            if (
+                strpos($userAgent, 'Safari') &&
+                !strpos($userAgent, 'Chrome')
+            ) {
                 $this->polyfillLoaded = true;
                 $script = <<<HTML
                     <script src="//unpkg.com/document-register-element" defer></script>

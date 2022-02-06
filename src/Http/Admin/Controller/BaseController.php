@@ -6,5 +6,4 @@ use App\Http\Controller\AbstractController;
 
 class BaseController extends AbstractController
 {
-
 }
