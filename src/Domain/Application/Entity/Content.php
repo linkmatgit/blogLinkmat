@@ -1,14 +1,26 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Domain\Application\Entity;
 
+use App\Domain\Blog\Entity\Post;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping\Column;
+use Doctrine\ORM\Mapping\DiscriminatorColumn;
+use Doctrine\ORM\Mapping\DiscriminatorMap;
 use Doctrine\ORM\Mapping\Entity;
 use Doctrine\ORM\Mapping\GeneratedValue;
 use Doctrine\ORM\Mapping\Id;
+use Doctrine\ORM\Mapping\InheritanceType;
 
 #[Entity]
+#[InheritanceType('JOINED')]
+#[DiscriminatorColumn(name: 'type', type: 'string')]
+#[DiscriminatorMap([
+    'post' => Post::class
+])]
+
 abstract class Content
 {
     #[Id]
@@ -96,7 +108,7 @@ abstract class Content
      * @param mixed $online
      * @return Content
      */
-    public function setOnline($online): self
+    public function setOnline(bool $online): self
     {
         $this->online = $online;
         return $this;

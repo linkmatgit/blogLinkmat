@@ -225,5 +225,4 @@ class User implements PasswordAuthenticatedUserInterface, UserInterface
         $this->confirmation_token = $confirmation_token;
         return $this;
     }
-
 }

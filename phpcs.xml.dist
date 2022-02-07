@@ -10,7 +10,6 @@
 
     <rule ref="PSR12"/>
 
-    <file>domain/</file>
     <file>src/</file>
     <file>tests/</file>
 

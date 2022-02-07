@@ -1,27 +1,25 @@
 <?php
 
-namespace App\Domain\Draft\Repository;
+namespace App\Domain\Blog\Repository;
 
-use App\Domain\Draft\Draft;
+use App\Domain\Blog\Entity\Post;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
- * @method Draft|null find($id, $lockMode = null, $lockVersion = null)
- * @method Draft|null findOneBy(array $criteria, array $orderBy = null)
- * @method Draft[]    findAll()
- * @method Draft[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * @method Post|null find($id, $lockMode = null, $lockVersion = null)
+ * @method Post|null findOneBy(array $criteria, array $orderBy = null)
+ * @method Post[]    findAll()
+ * @method Post[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class DraftRepository extends ServiceEntityRepository
+class PostRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
-        parent::__construct($registry, Draft::class);
+        parent::__construct($registry, Post::class);
     }
 
-    public function ownDraft(): Draft
-    {
-    }
+
 
     // /**
     //  * @return Draft[] Returns an array of Draft objects

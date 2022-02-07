@@ -9,7 +9,6 @@ use Symfony\Component\Security\Core\User\UserInterface;
 
 class AdminVoter extends Voter
 {
-
     public function __construct(private string $appEnv)
     {
     }
