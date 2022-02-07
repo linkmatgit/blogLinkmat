@@ -39,8 +39,9 @@ RUN curl -L https://github.com/fabpot/local-php-security-checker/releases/downlo
 RUN apt-get update && apt-get install -y ffmpeg
 
 # Xdebug (disabled by default, but installed if required)
-# RUN pecl install xdebug-2.9.7 && docker-php-ext-enable xdebug
-#ADD xdebug.ini /usr/local/etc/php/conf.d/
+#
+RUN pecl install xdebug && docker-php-ext-enable xdebug
+ADD xdebug.ini /usr/local/etc/php/conf.d/
 
 WORKDIR /var/www
 

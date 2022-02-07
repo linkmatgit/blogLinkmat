@@ -6,10 +6,12 @@ includes:
   - vendor/phpstan/phpstan-doctrine/extension.neon
 
 parameters:
-  level: 8
+  level: 6
   paths:
     - src
   excludePaths:
     - src/Infrastructure/Migrations/*
+    - src/Http/Admin/Controller/CrudController.php
+    - src/Http/Form/AutomaticForm.php
   checkMissingIterableValueType: false
   checkGenericClassInNonGenericObjectType: false
