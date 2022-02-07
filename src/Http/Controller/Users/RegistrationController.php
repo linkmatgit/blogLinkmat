@@ -10,6 +10,7 @@ use App\Infrastructure\Security\TokenGeneratorInterface;
 use Doctrine\ORM\EntityManagerInterface;
 use Psr\EventDispatcher\EventDispatcherInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
@@ -52,5 +53,27 @@ class RegistrationController extends AbstractController
         return $this->render('registration/register.html.twig', [
             'registrationForm' => $form->createView(),
         ]);
+    }
+
+    #[Route('/inscription/confirmation/{id<\d+>}', name: 'register_confirm')]
+    public function confirmToken(User $user, Request $request, EntityManagerInterface $em): RedirectResponse
+    {
+        $token = $request->get('token');
+        if (empty($token) || $token !== $user->getConfirmationToken()) {
+            $this->addFlash('error', "Ce token n'est pas valide");
+
+            return $this->redirectToRoute('app_register');
+        }
+
+        if ($user->getRegisterAt() < new \DateTime('-2 hours')) {
+            $this->addFlash('error', 'Ce token a expiré');
+
+            return $this->redirectToRoute('app_register');
+        }
+        $user->setConfirmationToken(null);
+        $em->flush();
+        $this->addFlash('success', 'Votre compte a été validé.');
+
+        return $this->redirectToRoute('app_login');
     }
 }

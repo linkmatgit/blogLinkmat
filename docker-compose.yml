@@ -22,8 +22,10 @@ services:
     environment:
       PHP_IDE_CONFIG: serverName=grafikart
       APP_ENV: dev
+      REDIS_URL: redis://redis
       MAILER_DSN: smtp://mail:1025?encryption=null&auth_mode=null
-
+      MESSENGER_TRANSPORT_DSN: doctrine://default
+      #MESSENGER_TRANSPORT_FAILED_DSN: redis://redis:6379/messages_failed
   db:
     restart: unless-stopped
     image: postgres:14.1-alpine
@@ -60,10 +62,10 @@ services:
     depends_on:
       - db
     restart: unless-stopped
-    #command: ['php', 'bin/console', 'messenger:consume', 'async', '--limit=10', '-vv']
+    command: ['php', 'bin/console', 'messenger:consume', 'async', '--limit=10', '-vv']
     environment:
-      MESSENGER_TRANSPORT_DSN: redis://redis:6379/messages
-      MESSENGER_TRANSPORT_FAILED_DSN: redis://redis:6379/messages_failed
+      MESSENGER_TRANSPORT_DSN: doctrine://default
+      #MESSENGER_TRANSPORT_FAILED_DSN: redis://redis:6379/messages_failed
   # Dev tools
   adminer:
     image: adminer

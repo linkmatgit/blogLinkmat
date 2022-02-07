@@ -17,7 +17,7 @@ class RegisterFormType extends AbstractType
     {
         $builder
             ->add('email', RepeatedType::class, [
-                'type' => EmailType::class,
+                'type' => TextType::class,
                 'first_options'  => ['label' => 'Email'],
                 'second_options' => ['label' => 'Confirmer l\'Email'],
                 'invalid_message' => 'Les mot de passe doivent etre identique'
