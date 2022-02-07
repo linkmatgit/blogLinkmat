@@ -19,9 +19,7 @@ class DraftRepository extends ServiceEntityRepository
         parent::__construct($registry, Draft::class);
     }
 
-    public function ownDraft(): Draft
-    {
-    }
+
 
     // /**
     //  * @return Draft[] Returns an array of Draft objects

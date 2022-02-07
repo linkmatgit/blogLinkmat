@@ -9,6 +9,9 @@ class HomePageControllerTest extends WebTestCase
 {
     public function testHomePage()
     {
-   t
+        $this->client->request('GET', '/');
+        $this->assertResponseStatusCodeSame(Response::HTTP_OK);
+        $this->expectTitle("Page d'acceuil");
+        $this->expectH1('Bienvenue');
     }
 }

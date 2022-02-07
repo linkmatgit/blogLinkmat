@@ -2,6 +2,7 @@
 
 namespace App\Http\Admin\Controller;
 
+use App\Domain\Application\Entity\Content;
 use App\Http\Admin\Data\CrudDataInterface;
 use App\Infrastructure\Helper\Paginator\PaginatorInterface;
 use Doctrine\ORM\EntityManagerInterface;
@@ -18,7 +19,7 @@ abstract class CrudController extends BaseController
     /**
      * @var class-string<E>
      */
-   // protected string $entity = ;
+    protected string $entity = Content::class ;
     protected string $templatePath = 'blog';
     protected string $menuItem = '';
     protected string $routePrefix = '';

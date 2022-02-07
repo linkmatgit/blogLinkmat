@@ -180,9 +180,9 @@ class User implements PasswordAuthenticatedUserInterface, UserInterface
     }
 
 
-    public function eraseCredentials()
+    public function eraseCredentials(): array
     {
-        // TODO: Implement eraseCredentials() method.
+        return []; // TODO: Implement eraseCredentials() method.
     }
 
     public function getUserIdentifier(): string

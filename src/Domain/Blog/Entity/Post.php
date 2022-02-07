@@ -30,5 +30,4 @@ final class Post extends Content
         $this->category = $category;
         return $this;
     }
-
 }
