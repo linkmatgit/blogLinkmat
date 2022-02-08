@@ -10,13 +10,9 @@ group := $(shell id -g)
 drtest := $(dc) -f docker-compose.test.yml run --rm
 node := $(dr) node
 php := $(dr) --no-deps php
-
 .PHONY: help
 help: ## Affiche cette aide
 	@grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | sort | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-30s\033[0m %s\n", $$1, $$2}'
-
-
-
 
 
 .PHONY: build-docker
@@ -30,9 +26,6 @@ build-docker:
 dev: vendor/autoload.php ## Lance le serveur de développement
 	$(dc) up
 
-.PHONY: devmac
-devmac: ## Sur MacOS on ne préfèrera exécuter PHP en local pour les performances
-	docker-compose -f docker-compose.macos.yml up
 
 .PHONY: seed
 seed: vendor/autoload.php ## Génère des données dans la base de données (docker-compose up doit être lancé)
@@ -54,9 +47,6 @@ rollback:
 .PHONY: test
 test: vendor/autoload.php node_modules/time ## Execute les tests
 	$(drtest) phptest vendor/bin/phpunit
-.PHONY: cov
-cov: vendor/autoload.php node_modules/time ## Execute les tests
-	$(drtest) phptest vendor/bin/phpunit --coverage-html html
 
 .PHONY: tt
 tt: vendor/autoload.php ## Lance le watcher phpunit
