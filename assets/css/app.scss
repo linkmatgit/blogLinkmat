@@ -1,0 +1,23 @@
+:root {
+  --background: #fff;
+  --gap: 8px;
+  --border: #000;
+  --space: 8px;
+}
+
+/* ======= OUTILS ===== */
+
+@import "tools/reset";
+@import 'tools/functions';
+@import "tools/mixins";
+@import "tools/typography";
+@import "tools/layout";
+
+body{
+  background: var(--background);
+  font-family: $font;
+  font-size: 16px;
+  line-height: 1.2;
+}
+@import "modules/form";
+@import "modules/select";
