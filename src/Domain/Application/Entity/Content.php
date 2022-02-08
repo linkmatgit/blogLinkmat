@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Domain\Application\Entity;
 
+use App\Domain\Auth\Entity\User;
 use App\Domain\Blog\Entity\Post;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping\Column;
@@ -13,6 +14,8 @@ use Doctrine\ORM\Mapping\Entity;
 use Doctrine\ORM\Mapping\GeneratedValue;
 use Doctrine\ORM\Mapping\Id;
 use Doctrine\ORM\Mapping\InheritanceType;
+use Doctrine\ORM\Mapping\JoinColumn;
+use Doctrine\ORM\Mapping\ManyToOne;
 
 #[Entity]
 #[InheritanceType('JOINED')]
@@ -39,6 +42,10 @@ abstract class Content
 
     #[Column(type: 'datetime_immutable', nullable: true)]
     private ?\DateTimeInterface $updatedAt = null;
+
+    #[ManyToOne(targetEntity: User::class)]
+    #[JoinColumn(nullable: true)]
+    private ?User $author = null;
 
     #[Column(type: 'boolean')]
     private bool $online = false;
@@ -106,6 +113,17 @@ abstract class Content
     public function setOnline(bool $online): self
     {
         $this->online = $online;
+        return $this;
+    }
+
+    public function getAuthor(): ?User
+    {
+        return $this->author;
+    }
+
+    public function setAuthor(?User $author): Content
+    {
+        $this->author = $author;
         return $this;
     }
 }

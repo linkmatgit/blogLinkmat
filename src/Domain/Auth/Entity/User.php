@@ -187,7 +187,7 @@ class User implements PasswordAuthenticatedUserInterface, UserInterface
 
     public function getUserIdentifier(): string
     {
-        return $this->username;
+        return (string) $this->username;
     }
 
     /**
