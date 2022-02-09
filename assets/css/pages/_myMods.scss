@@ -1,0 +1,21 @@
+.mod__grid {
+  @extend %grid;
+}
+.container_spacing {
+  margin-top: calc(var(--space) * 4);
+}
+.mod__grid .card__description {
+  font-weight: 500;
+
+}
+.mod__tabs{
+  display: flex;
+  justify-content: flex-end;
+
+}
+.mod__tabs li{
+    margin-left: var(--space);
+}
+.mod__header {
+  @extend %container;
+}

@@ -1,3 +1,5 @@
+// Conteneur
+// ==================
 :root {
   --container-padding: 20px;
   --container-width: calc(100vw - var(--container-padding) * 2);
@@ -15,7 +17,6 @@
     --container-width: 1230px;
   }
 }
-
 .page-wrapper {
   min-height: 100vh;
   display: flex;
@@ -24,6 +25,7 @@
   overflow: hidden;
   position: relative;
 }
+
 
 // Container
 // ==============
@@ -46,13 +48,81 @@
   margin-left: auto;
   margin-right: auto;
 }
+// Horizontal
+// ==================
+.flex {
+  display: flex !important;
+  align-items: center;
+  justify-content: space-between;
 
-%grid-template {
-  width: 100%;
-  display: grid !important;
-  grid-template-columns: 1fr;
+  & > * {
+    min-width: 0;
+  }
+}
+.flex-end {
+  justify-content: flex-end;
 }
 
+%stack,
+.stack,
+.stack-large,
+.stack-separated {
+  --gap: 2;
+  display: grid !important;
+  grid-template-columns: 1fr;
+  align-content: flex-start;
+  grid-gap: calc(var(--gap) * var(--space));
+
+  & > * {
+    min-width: 0;
+  }
+}
+
+.stack-large {
+  --gap: 4;
+}
+
+.stack-separated {
+  --gap: 3;
+  --gap-separated: var(--gap);
+  grid-gap: calc(var(--gap) * var(--space) * 2);
+}
+
+.stack-separated > * + * {
+  position: relative;
+}
+
+.stack-separated > * + *::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 1px;
+  width: 100%;
+  background: var(--border-light);
+  top: calc(var(--gap-separated) * var(--space) * -1);
+}
+
+// Grille
+// ==================
+%grid,
+.grid {
+  width: 100%;
+  display: grid !important;
+  grid-gap: space(2);
+  grid-template-columns: repeat(auto-fill, minmax(var(--col, 275px), 1fr));
+}
+.grid15{
+  width: 100%;
+  display: grid !important;
+  --gap: 2;
+  grid-gap: calc(var(--gap) * var(--space));
+  grid-template-columns: 1fr;
+
+  @include up(800) {
+    grid-template-columns: 55% 45%;
+  }
+}
 %grid2,
 .grid2 {
   width: 100%;
@@ -64,4 +134,162 @@
   @include up(730) {
     grid-template-columns: repeat(2, 1fr);
   }
+}
+%grid3,
+.grid3 {
+  width: 100%;
+  display: grid !important;
+  --gap: 2;
+  grid-gap: calc(var(--gap) * var(--space));
+  grid-template-columns: 1fr;
+
+  @include up(730) {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+.hstack {
+  display: flex;
+  flex-wrap: wrap;
+  --gap: 2;
+  margin: calc(var(--gap) * var(--space) * -0.5);
+  margin-bottom: calc(var(--gap) * var(--space) * -1);
+  margin-top: 0;
+}
+
+.nowrap {
+  flex-wrap: nowrap;
+}
+
+.hstack > * {
+  margin-left: calc(var(--gap) * var(--space) * 0.5);
+  margin-right: calc(var(--gap) * var(--space) * 0.5);
+  margin-bottom: calc(var(--gap) * var(--space));
+}
+
+.hstack-large > * + * {
+  margin-left: space(4);
+}
+
+
+// Layout
+// ==================
+.layout-sidebar {
+  @extend %container;
+  --gap: 5;
+  display: grid;
+  grid-gap: calc(var(--gap) * var(--space));
+  grid-template-columns: 1fr;
+
+  & > * {
+    min-width: 0;
+  }
+
+  @include up(1100) {
+    grid-template-columns: 1fr 300px;
+  }
+}
+
+.sticky {
+  position: sticky;
+  top: space(3);
+}
+
+// Spaces
+// =============
+.mla {
+  margin-left: auto;
+}
+@for $i from 0 through 5 {
+  body {
+    .p#{$i} {
+      padding: space($i);
+    }
+
+    .pt#{$i} {
+      padding-top: space($i);
+    }
+
+    .pb#{$i} {
+      padding-bottom: space($i);
+    }
+
+    .px#{$i} {
+      padding-left: space($i);
+      padding-right: space($i);
+    }
+
+    .py#{$i} {
+      padding-top: space($i);
+      padding-bottom: space($i);
+    }
+
+    .my#{$i} {
+      margin-top: space($i);
+      margin-bottom: space($i);
+    }
+
+    .m#{$i} {
+      margin: space($i);
+    }
+
+    .mx#{$i} {
+      margin-left: space($i);
+      margin-right: space($i);
+    }
+
+    .mt#{$i} {
+      margin-top: space($i);
+    }
+
+    .mb#{$i} {
+      margin-bottom: space($i);
+    }
+
+    .mr#{$i} {
+      margin-right: space($i);
+    }
+
+    .ml#{$i} {
+      margin-left: space($i);
+    }
+  }
+}
+
+.mobile-only {
+  @include up(700) {
+    display: none;
+  }
+}
+
+.mobile-hidden {
+  @include down(700) {
+    display: none;
+  }
+}
+.none {
+  display: none;
+}
+.relative {
+  position: relative;
+  display: block;
+}
+.block {
+  display: block;
+}
+.hr {
+  margin-top: var(--space);
+  border-top: 1px solid var(--border-light);
+}
+.text-right {
+
+  text-align: right;
+}
+.text-center {
+  text-align: center;
+  justify-content: center;
+}
+
+.page__light {
+  background: var(--background-light);
+  border-bottom: 1px solid var(--border-light);
 }

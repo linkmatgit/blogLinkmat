@@ -1,0 +1,13 @@
+// Footer
+// =============
+.footer {
+  @extend %container;
+  margin-top: space(9);
+  padding-top: space(6);
+  padding-bottom: space(6);
+  background: var(--contrast); // linear-gradient(#00000003, #00000003);
+  border-top: solid 4px var(--border-light);
+  grid-gap: space(4);
+  position: absolute;
+  bottom: 0;
+}
