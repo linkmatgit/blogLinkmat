@@ -6,6 +6,8 @@ namespace App\Domain\Application\Entity;
 
 use App\Domain\Auth\Entity\User;
 use App\Domain\Blog\Entity\Post;
+use App\Domain\Course\Entity\Course;
+use App\Domain\Live\Entity\Live;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\ORM\Mapping\Column;
@@ -20,6 +22,8 @@ use Symfony\Component\Validator\Constraints\NotBlank;
 #[ORM\DiscriminatorColumn(name: 'type', type: 'string')]
 #[ORM\DiscriminatorMap([
     'post' => Post::class,
+    'course' => Course::class,
+    'live' => Live::class
 
 ])]
 

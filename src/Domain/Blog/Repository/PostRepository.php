@@ -28,10 +28,9 @@ class PostRepository extends ServiceEntityRepository implements PostRepositoryIn
             ->getResult();
     }
 
-    public function findAdminIndex(): Query
+    public function findAdminIndex(): \Doctrine\ORM\QueryBuilder
     {
-        return  $this->createQueryBuilder('p')
-           ->getQuery()
-           ;
+        return  $this->createQueryBuilder('row')
+        ->orderby('row.createdAt', 'DESC');
     }
 }

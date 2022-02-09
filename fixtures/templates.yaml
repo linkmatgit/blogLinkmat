@@ -13,6 +13,6 @@ App\Domain\Auth\Entity\User:
     user (template):
       username: John<current()>
       email: john<current()>\@doe.fr
-      password: <password('0000')>
+      password: \$2y\$13\$Jq.22fFVVD8WWk6PsFiNU.sFEcj041fBbjZfPY9hOMNMM2cLVzIsO
       registerAt: <dateTimeThisYear()>
       #isverified: true

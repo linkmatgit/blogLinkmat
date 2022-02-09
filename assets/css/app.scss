@@ -16,8 +16,9 @@
 body{
   background: var(--background);
   font-family: $font;
-  font-size: 16px;
+  font-size: 20px;
   line-height: 1.2;
 }
 @import "modules/form";
 @import "modules/select";
+@import "modules/header";
