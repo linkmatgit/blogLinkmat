@@ -6,12 +6,13 @@ App\Domain\Blog\Entity\Post:
     created_at: <dateTimeThisYear()>
     updated_at: <dateTimeThisYear()>
     online: true
-    author: '@user*'
+    category: <slug()>
+    #author: '@user*'
 
 App\Domain\Auth\Entity\User:
     user (template):
-      name: John<current()>
+      username: John<current()>
       email: john<current()>\@doe.fr
       password: <password('0000')>
-      createdAt: <dateTimeThisYear()>
-      isverified: true
+      registerAt: <dateTimeThisYear()>
+      #isverified: true

@@ -47,6 +47,4 @@ class WebTestCase extends \Symfony\Bundle\FrameworkBundle\Test\WebTestCase
             '<title> missmatch',
         );
     }
-
-
 }

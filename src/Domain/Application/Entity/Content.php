@@ -7,30 +7,27 @@ namespace App\Domain\Application\Entity;
 use App\Domain\Auth\Entity\User;
 use App\Domain\Blog\Entity\Post;
 use Doctrine\DBAL\Types\Types;
+use Doctrine\ORM\Mapping as ORM;
 use Doctrine\ORM\Mapping\Column;
-use Doctrine\ORM\Mapping\DiscriminatorColumn;
-use Doctrine\ORM\Mapping\DiscriminatorMap;
 use Doctrine\ORM\Mapping\Entity;
-use Doctrine\ORM\Mapping\GeneratedValue;
-use Doctrine\ORM\Mapping\Id;
-use Doctrine\ORM\Mapping\InheritanceType;
 use Doctrine\ORM\Mapping\JoinColumn;
 use Doctrine\ORM\Mapping\ManyToOne;
 use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Validator\Constraints\NotBlank;
 
-#[Entity]
-#[InheritanceType('JOINED')]
-#[DiscriminatorColumn(name: 'type', type: 'string')]
-#[DiscriminatorMap([
-    'post' => Post::class
+#[Entity()]
+#[ORM\InheritanceType("JOINED")]
+#[ORM\DiscriminatorColumn(name: 'type', type: 'string')]
+#[ORM\DiscriminatorMap([
+    'post' => Post::class,
+
 ])]
 
 abstract class Content
 {
-    #[Id]
-    #[GeneratedValue('IDENTITY')]
-    #[Column(type: Types::INTEGER)]
+    #[ORM\Id]
+    #[ORM\GeneratedValue(strategy: 'IDENTITY')]
+    #[ORM\Column(type: Types::INTEGER, nullable: true)]
     private ?int $id = null;
 
     #[Column(type: Types::STRING, length: 255, nullable: true)]
@@ -43,24 +40,40 @@ abstract class Content
     #[NotBlank]
     private ?string $content = null;
 
-    #[Column(type: 'datetime_immutable', nullable: true)]
+    #[Column(type: Types::TEXT, length: 255, nullable: true)]
+    #[NotBlank]
+    private ?string $slug = null;
+
+    #[Column(type: 'datetime', nullable: true)]
     private ?\DateTimeInterface $createdAt = null;
 
-    #[Column(type: 'datetime_immutable', nullable: true)]
+    #[Column(type: 'datetime', nullable: true)]
     private ?\DateTimeInterface $updatedAt = null;
 
     #[ManyToOne(targetEntity: User::class)]
     #[JoinColumn(nullable: true)]
-    private User $author;
+    private ?User $author;
 
     #[Column(type: 'boolean')]
     private bool $online = false;
 
+    /**
+     * @return int|null
+     */
     public function getId(): ?int
     {
         return $this->id;
     }
 
+    /**
+     * @param int|null $id
+     * @return Content
+     */
+    public function setId(?int $id): self
+    {
+        $this->id = $id;
+        return $this;
+    }
     public function getTitle(): ?string
     {
         return $this->title;
@@ -70,6 +83,24 @@ abstract class Content
     {
         $this->title = $title;
 
+        return $this;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getSlug(): ?string
+    {
+        return $this->slug;
+    }
+
+    /**
+     * @param string|null $slug
+     * @return Content
+     */
+    public function setSlug(?string $slug): Content
+    {
+        $this->slug = $slug;
         return $this;
     }
 

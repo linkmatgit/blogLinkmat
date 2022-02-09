@@ -27,7 +27,6 @@ class BlogCrudController extends CrudController
     #[Route('/', name: 'index')]
     public function index(): Response
     {
-        $this->paginator->allowSort('row.id');
         $query = $this->getRepository()
             ->createQueryBuilder('row')
             ->orderby('row.createdAt', 'DESC');
@@ -40,6 +39,4 @@ class BlogCrudController extends CrudController
         $data = new BlogCrudData($post);
         return $this->crudNew($data);
     }
-
-
 }

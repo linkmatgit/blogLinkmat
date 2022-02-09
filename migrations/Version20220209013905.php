@@ -10,7 +10,7 @@ use Doctrine\Migrations\AbstractMigration;
 /**
  * Auto-generated Migration: Please modify to your needs!
  */
-final class Version20220208140013 extends AbstractMigration
+final class Version20220209013905 extends AbstractMigration
 {
     public function getDescription(): string
     {
@@ -25,10 +25,8 @@ final class Version20220208140013 extends AbstractMigration
         $this->addSql('COMMENT ON COLUMN blog_category.created_at IS \'(DC2Type:datetime_immutable)\'');
         $this->addSql('COMMENT ON COLUMN blog_category.updated_at IS \'(DC2Type:datetime_immutable)\'');
         $this->addSql('CREATE TABLE blog_post (id INT NOT NULL, category VARCHAR(255) DEFAULT NULL, PRIMARY KEY(id))');
-        $this->addSql('CREATE TABLE content (id SERIAL NOT NULL, author_id INT DEFAULT NULL, title VARCHAR(255) DEFAULT NULL, content TEXT DEFAULT NULL, created_at TIMESTAMP(0) WITHOUT TIME ZONE DEFAULT NULL, updated_at TIMESTAMP(0) WITHOUT TIME ZONE DEFAULT NULL, online BOOLEAN NOT NULL, type VARCHAR(255) NOT NULL, PRIMARY KEY(id))');
+        $this->addSql('CREATE TABLE content (id SERIAL NOT NULL, author_id INT DEFAULT NULL, title VARCHAR(255) DEFAULT NULL, content TEXT DEFAULT NULL, slug TEXT DEFAULT NULL, created_at TIMESTAMP(0) WITHOUT TIME ZONE DEFAULT NULL, updated_at TIMESTAMP(0) WITHOUT TIME ZONE DEFAULT NULL, online BOOLEAN NOT NULL, type VARCHAR(255) NOT NULL, PRIMARY KEY(id))');
         $this->addSql('CREATE INDEX IDX_FEC530A9F675F31B ON content (author_id)');
-        $this->addSql('COMMENT ON COLUMN content.created_at IS \'(DC2Type:datetime_immutable)\'');
-        $this->addSql('COMMENT ON COLUMN content.updated_at IS \'(DC2Type:datetime_immutable)\'');
         $this->addSql('CREATE TABLE draft (id SERIAL NOT NULL, author_id INT NOT NULL, title VARCHAR(255) DEFAULT NULL, content TEXT DEFAULT NULL, created_at TIMESTAMP(0) WITHOUT TIME ZONE DEFAULT NULL, updated_at TIMESTAMP(0) WITHOUT TIME ZONE DEFAULT NULL, PRIMARY KEY(id))');
         $this->addSql('CREATE INDEX IDX_467C9694F675F31B ON draft (author_id)');
         $this->addSql('COMMENT ON COLUMN draft.created_at IS \'(DC2Type:datetime_immutable)\'');
