@@ -39,6 +39,7 @@ class WebTestCase extends \Symfony\Bundle\FrameworkBundle\Test\WebTestCase
 
     public function expectTitle(string $title): void
     {
+
         $crawler = $this->client->getCrawler();
         $this->assertEquals(
             $title . ' | Linkmat',
@@ -46,4 +47,6 @@ class WebTestCase extends \Symfony\Bundle\FrameworkBundle\Test\WebTestCase
             '<title> missmatch',
         );
     }
+
+
 }

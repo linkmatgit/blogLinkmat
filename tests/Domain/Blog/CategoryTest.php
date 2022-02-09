@@ -49,6 +49,9 @@ class CategoryTest extends KernelTestCase
     }
     public function testGetTrueOnline(): void
     {
+        $this->getEntityProvider()->getCreatedAt();
+        $this->getEntityProvider()->getUpdatedAt();
+        $this->getEntityProvider()->getId();
         $this->assertTrue($this->getEntityProvider()->isOnline());
     }
     public function testGetUser(): void

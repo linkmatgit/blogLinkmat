@@ -1,0 +1,12 @@
+include:
+  - templates.yaml
+
+App\Domain\Auth\Entity\User:
+  user{1..5} (extends user):
+  admin (extends user):
+    name: Linkmat
+    email: linkmat@doe.fr
+
+App\Domain\Blog\Entity\Post:
+  post{1..50} (extends post):
+    #category: '@category*'

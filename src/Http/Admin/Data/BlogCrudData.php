@@ -16,7 +16,7 @@ class BlogCrudData implements CrudDataInterface
 
     public ?\DateTimeInterface $updatedAt;
 
-    //public ?User $author;
+    public ?User $author;
 
     public bool $online;
 
@@ -47,6 +47,7 @@ class BlogCrudData implements CrudDataInterface
         $this->entity->setTitle($this->title);
         $this->entity->setContent($this->content);
         $this->entity->setOnline($this->online);
+        $this->entity->setAuthor($this->author);
         $this->entity->setCreatedAt($this->createdAt);
     }
 }

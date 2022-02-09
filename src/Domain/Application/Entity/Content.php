@@ -51,7 +51,7 @@ abstract class Content
 
     #[ManyToOne(targetEntity: User::class)]
     #[JoinColumn(nullable: true)]
-    private ?User $author = null;
+    private User $author;
 
     #[Column(type: 'boolean')]
     private bool $online = false;

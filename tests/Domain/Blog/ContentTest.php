@@ -79,6 +79,9 @@ class ContentTest extends KernelTestCase
     public function testGetTitle(): void
     {
         $post = $this->getEntityProvider()->getTitle();
+        $date = $this->getEntityProvider()->getUpdatedAt();
+        $date2 = $this->getEntityProvider()->getCreatedAt();
+        $id = $this->getEntityProvider()->getId();
         $this->assertSame('test', $post);
     }
 
