@@ -3,12 +3,13 @@
 namespace App\Domain\Blog\Entity;
 
 use App\Domain\Application\Entity\Content;
+use App\Domain\Blog\Repository\PostRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
-#[ORM\Entity]
+#[ORM\Entity(repositoryClass: PostRepository::class)]
 #[ORM\Table('blog_post')]
-final class Post extends Content
+class Post extends Content
 {
     #[ORM\Column(type: Types::STRING, nullable: true)]
     private ?string $category = null;

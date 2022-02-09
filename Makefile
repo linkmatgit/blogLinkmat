@@ -66,7 +66,7 @@ security-check: vendor/autoload.php ## Check pour les vulnérabilités des depen
 
 .PHONY: validate
 validate: vendor/autoload.php ## Génère les migrations
-	docker run -v $(PWD):/app -w /app -t --rm php:8.0-cli-alpine php -d memory_limit=-1 bin/console doctrine:schema:validate --skip-sync
+	docker run -v $(PWD):/app -w /app -t --rm php:8.1-cli-alpine php -d memory_limit=-1 bin/console doctrine:schema:validate --skip-sync
 
 .PHONY: drop
 drop: vendor/autoload.php ## Génère les migrations
@@ -78,7 +78,7 @@ create: vendor/autoload.php ## Génère les migrations
 
 .PHONY: container
 container: vendor/autoload.php ## Génère les migrations
-	docker run -v $(PWD):/app -w /app -t --rm php:8.0-cli-alpine php -d memory_limit=-1 bin/console lint:container
+	docker run -v $(PWD):/app -w /app -t --rm php:8.1-cli-alpine php -d memory_limit=-1 bin/console lint:container
 
 .PHONY: lint
 lint: vendor/autoload.php ## Analyse le code

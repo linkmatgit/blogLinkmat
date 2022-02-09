@@ -7,8 +7,6 @@ use Symfony\Component\HttpFoundation\Response;
 
 class RegisterControllerTest extends WebTestCase
 {
-
-
     public function testGetRegisterPage(): void
     {
 
@@ -30,6 +28,4 @@ class RegisterControllerTest extends WebTestCase
         $this->client->submit($form);
         $this->assertResponseRedirects();
     }
-
-
 }

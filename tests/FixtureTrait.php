@@ -6,7 +6,6 @@ use App\Infrastructure\Helper\PathHelper;
 
 trait FixtureTrait
 {
-
     public function loadsFixtures(array $fixtures): array
     {
 
