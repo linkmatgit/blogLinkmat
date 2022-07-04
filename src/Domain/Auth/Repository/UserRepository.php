@@ -47,4 +47,8 @@ class UserRepository extends ServiceEntityRepository implements UserRepositoryIn
         ;
     }
     */
+    public function findForAutoComplete(string $q): User
+    {
+
+    }
 }

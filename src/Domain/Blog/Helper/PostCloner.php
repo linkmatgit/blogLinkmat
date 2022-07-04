@@ -8,7 +8,7 @@ use App\Http\Admin\Cloner\CloneInterface;
 class PostCloner implements CloneInterface
 {
 
-    public function clone(object $rows): object
+    public function clone(object $rows): Post
     {
         $clone = new Post();
         $clone->setTitle($rows->getTitle());

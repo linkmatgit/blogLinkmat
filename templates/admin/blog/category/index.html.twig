@@ -1,9 +1,9 @@
 {% extends 'admin/layout/card.html.twig' %}
 
-{% block title %}{{ icon('pen') }} Gestion des Article
+{% block title %}{{ icon('pen') }} Gestion des Categories
 {% endblock %}
 {% block actions %}
-  <a href="{{ path('admin_blog_new') }}" class="btn-primary">Ajouter un Article</a>
+  <a href="{{ path('admin_category_new') }}" class="btn-primary">Ajouter une Categorie</a>
 {% endblock %}
 
 {% block content %}
@@ -18,21 +18,19 @@
     </thead>
     <tbody>
     {% for row in rows %}
-      {% set link = path('admin_blog_edit', {id: row.id}) %}
+      {% set link = path('admin_category_edit', {id: row.id}) %}
       <tr>
         <td class="dashboard-id">
           <a href="{{ link }}">{{ row.id }}</a>
         </td>
         <td>
-          <a href="{{ link }}">{{ row.title }}</a>
+          <a href="{{ link }}">{{ row.name }}</a>
         </td>
         <td><span class="bullet {% if row.online == false %}bullet--danger{% endif %}"></span></td>
         <td>
           <div class="dashboard-actions">
-
-            <a href="{{ path('admin_blog_clone', {id: row.id}) }}">{{ icon('clone') }}</a>
             <a href="{{ link }}">{{ icon('edit') }}</a>
-            <form action="{{ path('admin_blog_edit', {id: row.id}) }}" method="post" onsubmit="return confirm('Voulez-vous vraiment supprimer ce contenu')">
+            <form action="{{ path('admin_category_edit', {id: row.id}) }}" method="post" onsubmit="return confirm('Voulez-vous vraiment supprimer ce contenu')">
               <input type="hidden" name="_method" value="DELETE" />
               <button type="submit">
                 {{ icon('delete') }}

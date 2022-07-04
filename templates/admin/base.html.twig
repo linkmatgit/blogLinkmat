@@ -1,18 +1,88 @@
 <!DOCTYPE html>
-<html>
-    <head>
-        <meta charset="UTF-8">
-        <title>{% block title 'Grafikart' %} | Linkmat</title>
-        <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text></svg>">
-        {% block stylesheets %}
-            {{ encore_entry_link_tags('app') }}
-        {% endblock %}
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>{% apply striptags %}{% block title '' %}{% endapply %} | Linkmat</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimal-ui"/>
+    {% block stylesheets %}
+        {{ encore_entry_link_tags('app', {media: 'screen'}) }}
+        {{ encore_entry_link_tags('admin', {media: 'screen'}) }}
+    {% endblock %}
+    {% block javascripts %}
+        {{ encore_entry_script_tags('app') }}
+        {{ encore_entry_script_tags('admin') }}
+    {% endblock %}
+    <meta name="turbolinks-cache-control" content="no-cache"/>
+</head>
+<body class="admin">
+<div class="dashboard-page">
+    <aside class="dashboard-sidebar">
+        <div class="dashboard-sidebar__wrapper">
+            <ul class="dashboard-sidebar__main">
+                <li><a href="{{ path('admin_dashboard')}}" {{ menu_active('home') }}>{{ icon('dashboard') }} Dashboard</a></li>
+                <li class="title">Communauté</li>
+                <li><a href="{{ path('admin_blog_index') }}" {{ menu_active('blog') }}>{{ icon('pen') }} Blog</a>
+                <li><a href="#" {{ menu_active('category') }}>{{ icon('brand') }} Category</a>
+                <li><a href="#" {{ menu_active('forum') }}>{{ icon('comments') }} Forums</a>
+                </li>
 
-        {% block javascripts %}
-            {{ encore_entry_script_tags('app') }}
-        {% endblock %}
-    </head>
-    <body>
-        {% block body %}{% endblock %}
-    </body>
+                <li class="title">Mods</li>
+                <li><a href="#" {{ menu_active('mods') }}>{{ icon('cloud') }} Mods</a>
+                <li><a href="#" {{ menu_active('mod_category') }}>{{ icon('cog') }} Category</a>
+                <li><a href="#" {{ menu_active('brand') }}>{{ icon('brand') }} Marque</a>
+                <li><a href="#" {{ menu_active('mod_release') }}>{{ icon('action') }} Action</a>
+                <li><a href="#" {{ menu_active('mod_decline') }}>{{ icon('action') }} Refusée</a>
+
+                </li>
+                <li class="title">Manager</li>
+                <li><a href="#" {{ menu_active('reason') }}>{{ icon('delete') }} Raison</a>
+                </li>
+
+                <li class="title">Work in Progess</li>
+                <li><a href="#" {{ menu_active('wip') }}>{{ icon('cloud') }} WIP</a>
+                <li><a href="#" {{ menu_active('catedgory') }}>{{ icon('apple') }} Action</a>
+                <li><a href="#" {{ menu_active('catedgory') }}>{{ icon('action') }} Refusée</a>
+                </li>
+
+                <li class="title">Utilisateur</li>
+                <li><a href="#" {{ menu_active('user') }}>{{ icon('cloud') }} Utilisateur</a>
+                <li><a href="#" {{ menu_active('catedgory') }}>{{ icon('team') }} Equipe</a>
+                <li><a href="#" {{ menu_active('group') }}>{{ icon('check') }} Groupe</a>
+                <li><a href="#" {{ menu_active('catedgory') }}>{{ icon('action') }} Role</a>
+
+                </li>
+
+                <li class="title">Config</li>
+                <li><a href="#" {{ menu_active('blogd') }}>{{ icon('cog') }} Configuration</a>
+                <li><a href="#" {{ menu_active('catedgory') }}>{{ icon('team') }} Cache</a>
+                </li>
+            </ul>
+        </div>
+    </aside>
+    <aside class="dashboard-topbar">
+        <div class="dashboard-topbar__search">
+            {% if searchable is defined and searchable %}
+                <form>
+                    <input name="q" type="text" placeholder="Rechercher" value="{{ app.request.get('q') }}">
+                </form>
+            {% endif %}
+        </div>
+        <ul class="dashboard-topbar__nav">
+            <li class="header__logout"><a href="/">{{ icon('logout') }}</a></li>
+        </ul>
+    </aside>
+    <main class="dashboard-body">
+        {% include 'partials/flash.html.twig' with {floating: true, duration: 2} %}
+        {% block body ''  %}
+    </main>
+</div>
+
+
+<script>
+    window.linkmat = {
+        ADMIN: {{ is_granted('SUPERADMIN') ? 'true' : 'false' }},
+        USER: {{ app.user ? app.user.id : 'null' }},
+    }
+</script>
+</body>
 </html>

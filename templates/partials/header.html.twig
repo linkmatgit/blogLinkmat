@@ -1,0 +1,29 @@
+<header>
+    <nav class="header" >
+        <ul class="header-nav">
+            <li class="header__home"><a href="{{ path('app_home') }}" {{ menu_active('home') }}>{{ icon('home') }}</a> </li>
+            <li><a href="#" {{ menu_active('forum') }}>{{ icon('comments') }} Forum</a> </li>
+            <li><a href="#"{{ menu_active('blog') }}>{{ icon('pen') }} Blog</a> </li>
+            <li><a href="#" {{ menu_active('wip') }}>{{ icon('cog') }} WIP</a> </li>
+            <li><a href="#" {{ menu_active('category') }}>{{ icon('brand') }} Category</a> </li>
+            <li><a href="#" {{ menu_active('mods') }}>{{ icon('cloud') }} Mods</a> </li>
+            <li><a href="#" {{ menu_active('course') }}>{{ icon('video') }} Tutoriel</a> </li>
+
+        </ul>
+        <ul class="header-side">
+            {% if app.user %}
+                <li class="content_add"><a href="#">{{ icon('add') }}</a></li>
+                {% if is_granted('ROLE_ADMIN') %}  <li class="content_add"><a href="{{ path('admin_dashboard') }}">{{ icon('locka') }}</a></li> {% endif %}
+                <li class="header__account"><a href="{{ path('app_profil')}}">{{ icon('user') }}
+                        <span>{{ app.user.userIdentifier }}</span></a> </li>
+
+                <li class="header__logout"><a href="{{ path('app_logout') }}">
+                        {{ icon('logout') }} <span>Se déconnecter</span>
+                    </a> </li>
+
+            {% else %}
+                <li><a href="{{ path('app_login') }}">Se Connectée</a> </li>
+                <li><a href="{{ path('app_register') }}">S'inscrire</a> </li>
+            {% endif %}</ul>
+    </nav>
+</header>

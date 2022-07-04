@@ -7,6 +7,7 @@ use App\Domain\Blog\Events\CreatedPostEvent;
 use App\Domain\Blog\Events\DeletedPostEvent;
 use App\Domain\Blog\Events\UpdatedPostEvent;
 use App\Domain\Blog\Repository\PostRepositoryInterface;
+use App\Http\Admin\Cloner\CloneInterface;
 use App\Http\Admin\Data\BlogCrudData;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -19,7 +20,7 @@ class BlogCrudController extends CrudController
      */
     protected string $entity = Post::class ;
     protected string $templatePath = 'blog';
-    protected string $menuItem = '';
+    protected string $menuItem = 'blog';
     protected string $routePrefix = 'blog';
     protected string $searchField = 'title';
     protected array $events = [
@@ -38,20 +39,30 @@ class BlogCrudController extends CrudController
     #[Route('/new', name: 'new', methods: ['POST', 'GET'])]
     public function new(): Response
     {
-        $post = (new Post())->setAuthor($this->getUser())->setCreatedAt(new \DateTime());
+        $post = (new Post())
+            ->setAuthor($this->getUser())
+            ->setCreatedAt(new \DateTime());
         $data = new BlogCrudData($post);
         return $this->crudNew($data);
     }
-    #[Route('/edit/{id<\d+>}', name: 'edit', methods: ['POST', 'GET'])]
+    #[Route('/{id<\d+>}', name: 'edit')]
     public function edit(Post $row): Response
     {
         $data = (new BlogCrudData($row));
 
-        $this->crudEdit($data);
+        return $this->crudEdit($data);
     }
     #[Route('/{id<\d+>}', name: 'delete', methods: ['DELETE'])]
     public function delete(Post $row): Response
     {
-        $this->crudDelete($row);
+        return $this->crudDelete($row);
+    }
+
+    #[Route('/clone/{id<\d+>}', name: 'clone', methods: ['POST', 'GET'])]
+    public function clone(CloneInterface $clone, Post $row): Response
+    {
+        $clone = $clone->clone($row);
+        $data = new BlogCrudData($clone);
+        return $this->crudNew($data);
     }
 }

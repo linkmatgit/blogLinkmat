@@ -2,9 +2,13 @@
 
 namespace App\Http\Form;
 
+use App\Domain\Auth\Entity\User;
+use App\Http\Admin\Type\UserChoiceType;
+use App\Http\Type\DateTimeType;
+use App\Http\Type\EditorType;
+use App\Http\Type\SwitchType;
 use ReflectionClass;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -18,10 +22,13 @@ class AutomaticForm extends AbstractType
         'string' => TextType::class,
         'int' => NumberType::class,
         'float' => NumberType::class,
+        \DateTimeInterface::class => DateTimeType::class,
+        User::class => UserChoiceType::class,
+        'bool' => SwitchType::class
     ];
 
     public final const NAMES = [
-
+        'content' => EditorType::class
     ];
 
     /**

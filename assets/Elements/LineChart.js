@@ -11,27 +11,30 @@
  * @property {Chart} chart
  */
 export class LineChart extends HTMLElement {
-    static get observedAttributes() {
+    static get observedAttributes()
+    {
         return ["hidden"];
     }
 
-    constructor() {
+    constructor()
+    {
         super();
         this.root = this.attachShadow({ mode: "open" });
     }
 
-    async connectedCallback() {
+    async connectedCallback()
+    {
         /** @var {Chart} Chart **/
         const ChartImport = await import("chart.js");
         const Chart = ChartImport.default || ChartImport // Handle difference between vite / rollup
         this.style.display = "block";
-        this.root.innerHTML = `<style>
-      canvas {
-        width: 100% !important;
-        height: 375px;
-      }
-    </style>
-    <canvas width="1000" height="375"></canvas>`;
+        this.root.innerHTML = ` < style >
+        canvas {
+            width: 100 % !important;
+            height: 375px;
+        }
+        <  / style >
+        < canvas width = "1000" height = "375" > < / canvas > `;
         const points = JSON.parse(this.getAttribute("points"));
         const xKey = this.getAttribute("x") || "x";
         const yKey = this.getAttribute("y") || "y";
@@ -46,7 +49,7 @@ export class LineChart extends HTMLElement {
                         backgroundColor: "#4869ee0C",
                         borderColor: "#4869ee",
                         borderWidth: 2,
-                    },
+                },
                 ],
             },
             options: {
@@ -66,14 +69,14 @@ export class LineChart extends HTMLElement {
                             gridLines: {
                                 drawOnChartArea: false,
                             },
-                        },
+                    },
                     ],
                     yAxes: [
                         {
                             ticks: {
                                 beginAtZero: true,
                             },
-                        },
+                    },
                     ],
                 },
                 animation: {
@@ -87,14 +90,16 @@ export class LineChart extends HTMLElement {
         });
     }
 
-    attributeChangedCallback(name, oldValue, newValue) {
+    attributeChangedCallback(name, oldValue, newValue)
+    {
         if (this.chart && name === "hidden" && newValue === null) {
             this.chart.canvas.style.height = "375px";
             this.chart.render();
         }
     }
 
-    disconnectedCallback() {
+    disconnectedCallback()
+    {
         this.innerHTML = "";
     }
 }

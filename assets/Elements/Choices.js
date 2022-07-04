@@ -10,7 +10,8 @@ export class SelectChoices extends HTMLSelectElement {}
  * Ajoute le comportement sur les select / champs
  * @param {InputChoices|SelectChoices} cls
  */
-function bindBehaviour (cls) {
+function bindBehaviour(cls)
+{
     cls.prototype.connectedCallback = function () {
         if (this.getAttribute('choicesBinded')) {
             return
@@ -44,8 +45,8 @@ function bindBehaviour (cls) {
             options.valueField = this.dataset.value
             options.labelField = this.dataset.label
             options.searchField = this.dataset.label
-            options.load = async (query, callback) => {
-                const url = `${this.dataset.remote}?q=${encodeURIComponent(query)}`
+            options.load = async(query, callback) => {
+                const url = `${this.dataset.remote} ? q = ${encodeURIComponent(query)}`
                 const data = await jsonFetch(url)
                 callback(data)
             }
@@ -68,7 +69,8 @@ function bindBehaviour (cls) {
     }
 }
 
-function redirectOnChange (select) {
+function redirectOnChange(select)
+{
     const params = new URLSearchParams(window.location.search)
     if (select.value === '') {
         params.delete(select.name)
@@ -78,7 +80,7 @@ function redirectOnChange (select) {
     if (params.has('page')) {
         params.delete('page')
     }
-    redirect(`${location.pathname}?${params}`)
+    redirect(`${location.pathname} ? ${params}`)
 }
 
 Array.from([InputChoices, SelectChoices]).forEach(bindBehaviour)

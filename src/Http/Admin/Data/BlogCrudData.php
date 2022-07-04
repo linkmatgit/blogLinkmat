@@ -14,7 +14,7 @@ class BlogCrudData implements CrudDataInterface
 
     public ?\DateTimeInterface $createdAt;
 
-    public ?\DateTimeInterface $updatedAt;
+    public ?string $slug;
 
     public ?User $author;
 
@@ -28,8 +28,9 @@ class BlogCrudData implements CrudDataInterface
         $this->title = $data->getTitle();
         $this->content = $data->getContent();
         $this->createdAt = $data->getCreatedAt();
-        $this->updatedAt = $data->getUpdatedAt();
         $this->online = $data->isOnline();
+        $this->slug = $data->getSlug();
+        $this->author = $data->getAuthor();
     }
 
     public function getEntity(): Post
@@ -49,5 +50,6 @@ class BlogCrudData implements CrudDataInterface
         $this->entity->setOnline($this->online);
         $this->entity->setAuthor($this->author);
         $this->entity->setCreatedAt($this->createdAt);
+        $this->entity->setSlug($this->slug);
     }
 }
